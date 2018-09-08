@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DateSelector">
+    <!-- 부모 레이아웃-->
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <DatePicker
+        android:id="@+id/date_Picker"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:datePickerMode="calendar">
+
+    </DatePicker>
+    <!-- 버튼 하단 고정을 위한 하단 레이아웃-->
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_PickDate"
+            android:text="조회 하기"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
+</android.support.constraint.ConstraintLayout>

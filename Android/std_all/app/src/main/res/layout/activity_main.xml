@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <!-- 상단 레이아웃 -->
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:text=""
+                android:textSize="30dp"
+                android:id="@+id/txt_showStatus"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+            <!-- 상단 자금 등록과 프로그램 설정 레이아웃 -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!-- 상단 좌측 레이아웃 -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:text="설정 / 조회"
+                        android:textSize="25dp"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <!--
+                    <RadioGroup
+                        android:id="@+id/rGroup_Theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/rbtn_dark"
+                            android:textSize="20dp"
+                            android:text="어두운 테마"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <RadioButton
+                            android:id="@+id/rbtn_bright"
+                            android:text="밝은 테마"
+                            android:textSize="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </RadioGroup>
+                    -->
+                    <Switch
+                        android:id="@+id/sw_Theme"
+                        android:text="테마 변경"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/btn_showWithdraw"
+                        android:text="지출 조회"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:id="@+id/btn_showIncome"
+                        android:text="수입 조회"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <!-- 상단 우측 레이아웃 -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textSize="25dp"
+                        android:text="등록"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:id="@+id/btn_inputMin"
+                        android:text="지출입력"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/txt_outCnt"
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:id="@+id/btn_inputIn"
+                        android:text="수입입력"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/txt_inCnt"
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 중간 레이아웃 -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txt_todayTotLabel"
+                    android:text="오늘의 소비"
+                    android:gravity="center"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txt_todayTot"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- 하단 레이아웃 -->
+        <LinearLayout
+            android:layout_weight="50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:id="@+id/list_Data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

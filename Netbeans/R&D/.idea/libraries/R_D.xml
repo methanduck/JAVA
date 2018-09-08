@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="R&amp;D">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/LIRS.jar!/" />
+      <root url="jar://$PROJECT_DIR$/LRU.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

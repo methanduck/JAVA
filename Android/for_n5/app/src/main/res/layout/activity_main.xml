@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dhdms.for_n5.MainActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:text="행운의 주인공이 되어보세요" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Btn_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="당첨" />
+
+            <Button
+                android:id="@+id/Btn_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="당첨" />
+
+            <Button
+                android:id="@+id/Btn_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="당첨" />
+
+            <Button
+                android:id="@+id/Btn_4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="당첨" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_Result"
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="결과"
+            android:textSize="40dp" />
+
+        <Button
+            android:id="@+id/Btn_rst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="25dp"
+            android:text="재시작" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">std_all</string>
+    <string-array name="Income_Rsc">
+        <item>급여</item>
+        <item>용돈</item>
+        <item>이자</item>
+    </string-array>
+</resources>
