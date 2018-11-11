@@ -1,17 +1,16 @@
 package NetworkAPI;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
-import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
+import java.io.OutputStream;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Vector;
 
 
-public class NetworkAPI extends NetworkAPI_var implements Functions {
+public class NetworkAPI extends NetworkAPI_var {
 
     //Initializing
     public NetworkAPI () {
@@ -23,7 +22,7 @@ public class NetworkAPI extends NetworkAPI_var implements Functions {
 
     }
         //Getting Data from Window which was selected by user
-        @Override
+
         public List<Byte> GetData() {
             return null;
         }
@@ -31,7 +30,6 @@ public class NetworkAPI extends NetworkAPI_var implements Functions {
 
 
         //Getting Window address from LAN of Activated all interfaces on Host
-        @Override
         public Object GetWindowAddr(List<Node> Active_Addr, boolean FLAG) {
             List<Node> Window_IP_List = new ArrayList<Node>() ;
             if (!Flag_ERR) {
@@ -58,7 +56,6 @@ public class NetworkAPI extends NetworkAPI_var implements Functions {
             }
         }
 
-    @Override
     public boolean WindowOptions(String window,String Order) {
         switch (Order)
         {
@@ -78,7 +75,6 @@ public class NetworkAPI extends NetworkAPI_var implements Functions {
         return false;
     }
 
-    @Override
         public void GetLocalAddr() throws UnknownHostException {
                 try {
                     Enumeration netCard = NetworkInterface.getNetworkInterfaces();
@@ -101,5 +97,22 @@ public class NetworkAPI extends NetworkAPI_var implements Functions {
                 {
                     this.Flag_ERR = true;
                 }
+        }
+
+        public void COMM_SendMSG(String IPAddr, String Message) throws IOException {
+            Socket Client = new Socket(IPAddr,6866);
+            OutputStream NetOut = Client.getOutputStream();
+            NetOut.write(Message.getBytes());
+        }
+
+        public String COMM_RecvMSG(String IPAddr) throws IOException {
+            Socket Client = new Socket(IPAddr,6866);
+            InputStream NetIn = Client.getInputStream();
+            Vector<>
+        }
+
+        public String COMM_InteractiveMSG(String IPAddr, String Message)
+        {
+
         }
 }
