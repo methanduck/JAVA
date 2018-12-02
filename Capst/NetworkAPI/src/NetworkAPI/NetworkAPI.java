@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Handler;
 
 
 public class NetworkAPI {
@@ -16,15 +17,15 @@ public class NetworkAPI {
     public static final String OPERATION_MODEAUTO   = "AUTO";
     public static final String COMM_OK = "NETOK";
     public static final String COMM_FAIL = "NETERR";
-    //variables
-    List<Node> Active_IP_List;
 
-    //Initializer
-    public NetworkAPI () {
-        Active_IP_List = new ArrayList<Node>();
-    }
-
-    //node class should be initialized before provide this method
+    //NetworkAPI Commencing sequence
+    //1. Connect TCP to Window which ip was provided by initialized Node class
+    //2. if Window == configured, commence validation
+    //2. if Window != configured, initiate window configuration based on Node class
+    //3. after validation if passed, send command string to Window
+    //   if error occured throws exception with string "ERRVALIDATION" or "ARGUMENTSERR"
+    //   last one is occured WindowOperation method
+    //4. return the result string after all precedure completed
     public String StartNetworkAPI(Node window, String order) throws Exception {
         String COMM_validationResult;
         String CommandResult;
@@ -88,10 +89,10 @@ public class NetworkAPI {
     }
 
     //retrieving All local smartwindow ip address with delimiter ";" ex) 192.168.0.1;192.168.0.4;
-    public String FindWindow() throws UnknownHostException,SocketException,IOException {
-        String STRLIST_IPADDR = "";
-        Socket Client;
+    public List<Node> FindWindow() throws IOException {
         InetAddress tmpAddr;
+        List<Node> ActiveIPLIST = new ArrayList<>();
+
         String IP_Pattern = "((\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])\\.){3}(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])";
 
         Enumeration netCard = NetworkInterface.getNetworkInterfaces();
@@ -108,8 +109,21 @@ public class NetworkAPI {
                             @Override
                             public void run() {
                                 try {
-                                    (new Socket(targetIP, SVRPORT)).close();
-                                    STRLIST_IPADDR.concat(targetIP+";");
+                                    Node tmp=null;
+                                   Socket Client = new Socket(targetIP,SVRPORT);
+                                   String COMM_Result = COMM_RecvMSG(targetIP, Client);
+                                   if(COMM_Result.equals("CONFIG_REQUIRE"))
+                                   {
+                                       tmp = new Node(targetIP);
+                                       tmp.initialized = false;
+                                   } else {
+                                       tmp = new Node(targetIP);
+                                       String[] COMM_splitedResult = COMM_Result.split(":");
+                                       tmp.setHostName(COMM_splitedResult[1]);
+                                       tmp.initialized = true;
+                                   }
+                                   ActiveIPLIST.add(tmp);
+                                   Client.close();
                                 } catch (Exception e) {
                                 }
                             }
@@ -119,9 +133,9 @@ public class NetworkAPI {
                 }
             }
         }
-        return STRLIST_IPADDR;
+        return ActiveIPLIST;
     }
-
+    //COMMUNICATION method Parameter ( string IPaddress, string Message, Socket socketObject)
     public void COMM_SendMSG(String IPAddr, String Message,Socket Window) throws IOException {
         //one time connection
         if (Window == null) {
@@ -133,8 +147,9 @@ public class NetworkAPI {
             OutputStream NetOut = Window.getOutputStream();
             NetOut.write(Message.getBytes());
         }
-    }
 
+    }
+    //COMMUNICATION method
     public String COMM_RecvMSG(String IPAddr,Socket Window) throws IOException {
         String result = null;
         if (Window == null){
@@ -176,5 +191,4 @@ public class NetworkAPI {
     }
     return true;
     }
-
 }

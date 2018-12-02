@@ -3,13 +3,14 @@ package NetworkAPI;
 
 public class Node {
     //Variables
+    public boolean     initialized; //already configured node
     private String      Password;
     private String      IP_Addr;
     private String      HostName;
-    private int         Temp;
-    private int         Humidity;
-    private boolean     Light;
-    private int         Gas;
+    public int         Temp;
+    public int         Humidity;
+    public boolean     Light;
+    public int         Gas;
 
     public Node(String password, String IP_Addr, String hostName) {
         Password = password;
@@ -33,21 +34,6 @@ public class Node {
         return HostName;
     }
 
-    public int getTemp() {
-        return Temp;
-    }
-
-    public int getHumidity() {
-        return Humidity;
-    }
-
-    public boolean isLight() {
-        return Light;
-    }
-
-    public int getGas() {
-        return Gas;
-    }
 
     public void setPassword(String password) {
         Password = password;
