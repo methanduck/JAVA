@@ -1,5 +1,7 @@
 package NetworkAPI;
 
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -10,13 +12,13 @@ import java.util.logging.Handler;
 
 public class NetworkAPI {
     //Command Configuration
-    public static final int SVRPORT = 6866;
-    public static final String OPERATION_OPEN = "OPEN";
-    public static final String OPERATION_CLOSE = "CLOSE";
-    public static final String OPERATION_INFORMATION = "INFO";
-    public static final String OPERATION_MODEAUTO   = "AUTO";
-    public static final String COMM_OK = "NETOK";
-    public static final String COMM_FAIL = "NETERR";
+    private static final int SVRPORT = 6866;
+    private static final String OPERATION_OPEN = "OPEN";
+    private static final String OPERATION_CLOSE = "CLOSE";
+    private static final String OPERATION_INFORMATION = "INFO";
+    private static final String OPERATION_MODEAUTO   = "AUTO";
+    private static final String COMM_OK = "NETOK";
+    private static final String COMM_FAIL = "NETERR";
 
     //NetworkAPI Commencing sequence
     //1. Connect TCP to Window which ip was provided by initialized Node class
@@ -59,7 +61,7 @@ public class NetworkAPI {
     // return "NETOK" , "NETERR", required DATA i.e.) case OPERATION_INFORMATION:
     public String WindowOperations(Node Window , String Order, Socket COMM_Window) throws Exception {
         String COMM_result = COMM_OK;
-        String[] splitedOrder = null;
+        String[] splitedOrder;
         splitedOrder = Order.split(":");
 
         switch (splitedOrder[0])
@@ -151,7 +153,7 @@ public class NetworkAPI {
     }
     //COMMUNICATION method
     public String COMM_RecvMSG(String IPAddr,Socket Window) throws IOException {
-        String result = null;
+        String result ;
         if (Window == null){
             Socket Client = new Socket(IPAddr,6866);
             InputStream NetIn = Client.getInputStream();
@@ -164,6 +166,19 @@ public class NetworkAPI {
             while ( (result=Buff_In.readLine()) != null){}
         }
         return result;
+    }
+    //COMMUNICATION_JSON method
+    public void COMM_sendJSON(Node data,Socket Window) throws IOException {
+        Gson genJSON = new Gson();
+        String strJSON = genJSON.toJson(data);
+        COMM_SendMSG(data.getIP_Addr(),strJSON,Window);
+    }
+    //COMMUNICATION_JSON method
+    public Object COMM_recvJSON(String IPAddr,Socket Window) throws IOException {
+        Gson degenJSON = new Gson();
+        String recvJSON = COMM_RecvMSG(IPAddr,Window);
+        Node deserializedNodeData = degenJSON.fromJson(recvJSON,Node.class);
+        return deserializedNodeData;
     }
 
     //**deprecated
