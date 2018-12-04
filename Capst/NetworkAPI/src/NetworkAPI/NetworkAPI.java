@@ -116,7 +116,6 @@ public class NetworkAPI {
                             @Override
                             public void run() {
                                 try {
-                                    Node tmp=null;
                                     /*
                                    Socket Client = new Socket(targetIP,SVRPORT);
                                    String COMM_Result = COMM_RecvMSG(targetIP, Client);
@@ -131,12 +130,12 @@ public class NetworkAPI {
                                        tmp.initialized = true;
                                    }*/
                                     (new Socket(Thread.currentThread().getName(),SVRPORT)).close();
-                                    tmp = new Node(Thread.currentThread().getName());
+                                   Node tmp = new Node(Thread.currentThread().getName());
                                    ActiveIPLIST.add(tmp);
                                 } catch (Exception e) {
                                 }
                             }
-                        }).start();
+                        },targetIP).start();
                     }
                 }
                 count++;
