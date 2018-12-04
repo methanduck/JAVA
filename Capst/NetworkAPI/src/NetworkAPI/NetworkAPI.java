@@ -34,7 +34,8 @@ public class NetworkAPI {
         String CommandResult;
         String COMM_receivedData = null;
         Socket COMM_Window = new Socket(window.getIP_Addr(),SVRPORT);
-        CommandResult = COMM_RecvMSG(window.getIP_Addr(), COMM_Window);
+        COMM_SendMSG(window.getIP_Addr(),"HELLO",COMM_Window); // 1 HELLO
+        CommandResult = COMM_RecvMSG(window.getIP_Addr(), COMM_Window); //2 RECV MSG FROM SVR
         switch (COMM_receivedData){
             case "CONFIG_REQUIRE" :
                 COMM_SendMSG(window.getIP_Addr(), window.getPassword()+window.getHostName(), COMM_Window);
@@ -116,6 +117,7 @@ public class NetworkAPI {
                             public void run() {
                                 try {
                                     Node tmp=null;
+                                    /*
                                    Socket Client = new Socket(targetIP,SVRPORT);
                                    String COMM_Result = COMM_RecvMSG(targetIP, Client);
                                    if(COMM_Result.equals("CONFIG_REQUIRE"))
@@ -127,9 +129,10 @@ public class NetworkAPI {
                                        String[] COMM_splitedResult = COMM_Result.split(":");
                                        tmp.setHostName(COMM_splitedResult[1]);
                                        tmp.initialized = true;
-                                   }
+                                   }*/
+                                    (new Socket(Thread.currentThread().getName(),SVRPORT)).close();
+                                    tmp = new Node(Thread.currentThread().getName());
                                    ActiveIPLIST.add(tmp);
-                                   Client.close();
                                 } catch (Exception e) {
                                 }
                             }
