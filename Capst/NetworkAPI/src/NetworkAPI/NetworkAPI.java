@@ -38,13 +38,14 @@ public class NetworkAPI {
         CommandResult = COMM_RecvMSG(window.getIP_Addr(), COMM_Window); //2 RECV MSG FROM SVR
         switch (COMM_receivedData){
             case "CONFIG_REQUIRE" :
-                COMM_SendMSG(window.getIP_Addr(), window.getPassword()+window.getHostName(), COMM_Window);
+                COMM_SendMSG(window.getIP_Addr(), window.getPassword()+";"+window.getHostName(), COMM_Window);
                 String result = COMM_RecvMSG(window.getIP_Addr(),COMM_Window);
                 if (result.equals(SVR_ERR))
                     throw  new Exception("ERRCONFIG");
                 break;
 
             case "IDENTIFICATION_REQUIRE" :
+                //TODO : 만약 비어있는 객체일 경우 handling
                 COMM_SendMSG(window.getIP_Addr(), window.getPassword(), COMM_Window);
                 COMM_validationResult = COMM_RecvMSG("0", COMM_Window);
                 if (COMM_validationResult.equals(SVR_ERR)){
