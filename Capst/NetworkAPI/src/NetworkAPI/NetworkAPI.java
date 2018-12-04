@@ -93,10 +93,10 @@ public class NetworkAPI {
 
         return COMM_result;
     }
-
     //retrieving All local smartwindow ip address with delimiter ";" ex) 192.168.0.1;192.168.0.4;
     public List<Node> FindWindow() throws IOException {
         InetAddress tmpAddr;
+        int count = 0;
         List<Node> ActiveIPLIST = new ArrayList<>();
 
         String IP_Pattern = "((\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])\\.){3}(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])";
@@ -108,7 +108,7 @@ public class NetworkAPI {
             while (LocalAddr.hasMoreElements()) {
                 tmpAddr = (InetAddress) LocalAddr.nextElement();
                 if (!(tmpAddr.getHostAddress().equals("127.0.0.1")) && (tmpAddr.getHostAddress().matches(IP_Pattern))) {
-                    SubnetUtils calcAddr = new SubnetUtils(tmpAddr.getHostAddress()+"/"+Integer.toString(nextcard.getInterfaceAddresses().get(0).getNetworkPrefixLength()));
+                    SubnetUtils calcAddr = new SubnetUtils(tmpAddr.getHostAddress()+"/"+Integer.toString(nextcard.getInterfaceAddresses().get(count).getNetworkPrefixLength()));
                     String[] allAddr = calcAddr.getInfo().getAllAddresses();
                     for (String targetIP : allAddr) {
                         new Thread(new Runnable() {
@@ -135,8 +135,8 @@ public class NetworkAPI {
                             }
                         }).start();
                     }
-
                 }
+                count++;
             }
         }
         return ActiveIPLIST;
