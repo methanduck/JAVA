@@ -19,6 +19,7 @@ public class NetworkAPI {
     private static final String OPERATION_MODEAUTO   = "AUTO";
     private static final String COMM_OK = "NETOK";
     private static final String COMM_FAIL = "NETERR";
+    private static final String SVR_ERR = "ERR";
 
     //NetworkAPI Commencing sequence
     //1. Connect TCP to Window which ip was provided by initialized Node class
@@ -37,12 +38,15 @@ public class NetworkAPI {
         switch (COMM_receivedData){
             case "CONFIG_REQUIRE" :
                 COMM_SendMSG(window.getIP_Addr(), window.getPassword()+window.getHostName(), COMM_Window);
+                String result = COMM_RecvMSG(window.getIP_Addr(),COMM_Window);
+                if (result.equals(SVR_ERR))
+                    throw  new Exception("ERRCONFIG");
                 break;
 
             case "IDENTIFICATION_REQUIRE" :
                 COMM_SendMSG(window.getIP_Addr(), window.getPassword(), COMM_Window);
                 COMM_validationResult = COMM_RecvMSG("0", COMM_Window);
-                if (COMM_validationResult.equals("ERRVALIDATION")){
+                if (COMM_validationResult.equals(SVR_ERR)){
                     throw new Exception("ERRVALIDATION");
                 }
                 break;
