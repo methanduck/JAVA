@@ -7,7 +7,6 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Handler;
 
 
 public class NetworkAPI {
@@ -34,20 +33,20 @@ public class NetworkAPI {
         String COMM_validationResult;
         String CommandResult;
         String COMM_receivedData = null;
-        Socket COMM_Window = new Socket(window.getIP_Addr(),SVRPORT);
-        COMM_SendMSG(window.getIP_Addr(),"HELLO",COMM_Window); // 1 HELLO
-        CommandResult = COMM_RecvMSG(window.getIP_Addr(), COMM_Window); //2 RECV MSG FROM SVR
+        Socket COMM_Window = new Socket(window.getIPAddr(),SVRPORT);
+        COMM_SendMSG(window.getIPAddr(),"HELLO",COMM_Window); // 1 HELLO
+        CommandResult = COMM_RecvMSG(window.getIPAddr(), COMM_Window); //2 RECV MSG FROM SVR
         switch (COMM_receivedData){
             case "CONFIG_REQUIRE" :
-                COMM_SendMSG(window.getIP_Addr(), window.getPassword()+";"+window.getHostName(), COMM_Window);
-                String result = COMM_RecvMSG(window.getIP_Addr(),COMM_Window);
+                COMM_SendMSG(window.getIPAddr(), window.getPassword()+";"+window.getHostName(), COMM_Window);
+                String result = COMM_RecvMSG(window.getIPAddr(),COMM_Window);
                 if (result.equals(SVR_ERR))
                     throw  new Exception("ERRCONFIG");
                 break;
 
             case "IDENTIFICATION_REQUIRE" :
                 //TODO : 만약 비어있는 객체일 경우 handling
-                COMM_SendMSG(window.getIP_Addr(), window.getPassword(), COMM_Window);
+                COMM_SendMSG(window.getIPAddr(), window.getPassword(), COMM_Window);
                 COMM_validationResult = COMM_RecvMSG("0", COMM_Window);
                 if (COMM_validationResult.equals(SVR_ERR)){
                     throw new Exception("ERRVALIDATION");
@@ -74,20 +73,20 @@ public class NetworkAPI {
         switch (splitedOrder[0])
         {
             case OPERATION_OPEN :
-                COMM_SendMSG(Window.getIP_Addr(),OPERATION_OPEN,COMM_Window);
+                COMM_SendMSG(Window.getIPAddr(),OPERATION_OPEN,COMM_Window);
                 break;
             case OPERATION_CLOSE :
-                COMM_SendMSG(Window.getIP_Addr(), OPERATION_CLOSE,COMM_Window);
+                COMM_SendMSG(Window.getIPAddr(), OPERATION_CLOSE,COMM_Window);
                 break;
             case OPERATION_INFORMATION:
-                COMM_SendMSG(Window.getIP_Addr(), OPERATION_INFORMATION,COMM_Window);
-                COMM_result=COMM_RecvMSG(Window.getIP_Addr(), COMM_Window);
+                COMM_SendMSG(Window.getIPAddr(), OPERATION_INFORMATION,COMM_Window);
+                COMM_result=COMM_RecvMSG(Window.getIPAddr(), COMM_Window);
                 break;
             case OPERATION_MODEAUTO :
                 if (splitedOrder.length < 2) {
                     throw new Exception("ARGUMENTSERR");
                 }
-                COMM_SendMSG(Window.getIP_Addr(), OPERATION_MODEAUTO,COMM_Window);
+                COMM_SendMSG(Window.getIPAddr(), OPERATION_MODEAUTO,COMM_Window);
                 break;
 
                 default:
@@ -167,7 +166,7 @@ public class NetworkAPI {
     public void COMM_sendJSON(Node data,Socket Window) throws IOException {
         Gson genJSON = new Gson();
         String strJSON = genJSON.toJson(data);
-        COMM_SendMSG(data.getIP_Addr(),strJSON,Window);
+        COMM_SendMSG(data.getIPAddr(),strJSON,Window);
     }
     //COMMUNICATION_JSON method
     public Object COMM_recvJSON(String IPAddr,Socket Window) throws IOException {

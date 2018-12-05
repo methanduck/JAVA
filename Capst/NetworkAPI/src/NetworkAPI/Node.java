@@ -5,7 +5,7 @@ public class Node {
     //Variables
     public boolean     initialized; //already configured node
     private String      Password;
-    private String      IP_Addr;
+    private String      IPAddr;
     private String      HostName;
     public int         Temp;
     public int         Humidity;
@@ -14,33 +14,36 @@ public class Node {
 
     public Node(String password, String IP_Addr, String hostName) {
         Password = password;
-        this.IP_Addr = IP_Addr;
+        this.IPAddr = IP_Addr;
         HostName = hostName;
     }
 
     public Node(String IP_Addr) {
-        this.IP_Addr = IP_Addr;
+        this.IPAddr = IP_Addr;
     }
 
     public String getPassword() {
         return Password;
     }
 
-    public String getIP_Addr() {
-        return IP_Addr;
+    public String getIPAddr() {
+        return IPAddr;
     }
 
     public String getHostName() {
         return HostName;
     }
 
+    public boolean isInitialized() {
+        return initialized;
+    }
 
     public void setPassword(String password) {
         Password = password;
     }
 
-    public void setIP_Addr(String IP_Addr) {
-        this.IP_Addr = IP_Addr;
+    public void setIPAddr(String IPAddr) {
+        this.IPAddr = IPAddr;
     }
 
     public void setHostName(String hostName) {
