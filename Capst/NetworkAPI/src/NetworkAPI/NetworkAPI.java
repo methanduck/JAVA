@@ -21,6 +21,7 @@ public class NetworkAPI {
     private static final String COMM_FAIL = "NETERR";
     private static final String SVR_ERR = "ERR";
 
+
     //NetworkAPI Commencing sequence
     //1. Connect TCP to Window which ip was provided by initialized Node class
     //2. if Window == configured, commence validation
@@ -117,22 +118,10 @@ public class NetworkAPI {
                             @Override
                             public void run() {
                                 try {
-                                    /*
-                                   Socket Client = new Socket(targetIP,SVRPORT);
-                                   String COMM_Result = COMM_RecvMSG(targetIP, Client);
-                                   if(COMM_Result.equals("CONFIG_REQUIRE"))
-                                   {
-                                       tmp = new Node(targetIP);
-                                       tmp.initialized = false;
-                                   } else {
-                                       tmp = new Node(targetIP);
-                                       String[] COMM_splitedResult = COMM_Result.split(":");
-                                       tmp.setHostName(COMM_splitedResult[1]);
-                                       tmp.initialized = true;
-                                   }*/
-                                    (new Socket(Thread.currentThread().getName(),SVRPORT)).close();
-                                   Node tmp = new Node(Thread.currentThread().getName());
-                                   ActiveIPLIST.add(tmp);
+                                    Socket Window = new Socket(Thread.currentThread().getName(),SVRPORT);
+                                    Node SvrACK ;
+                                    SvrACK =(Node) COMM_recvJSON(Thread.currentThread().getName(),Window);
+                                    ActiveIPLIST.add(SvrACK);
                                 } catch (Exception e) {
                                 }
                             }
