@@ -7,6 +7,7 @@ public class Node {
     private String      Password;
     private String      IPAddr;
     private String      HostName;
+    private String      ModeAuto;
     private String      Oper;
     public int         Temp;
     public int         Humidity;
@@ -35,7 +36,7 @@ public class Node {
         return HostName;
     }
 
-    publc String getOper() {
+    public String getOper() {
         return Oper;
     }
     

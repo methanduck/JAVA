@@ -120,6 +120,7 @@ public class NetworkAPI {
                                     Socket Window = new Socket(Thread.currentThread().getName(),SVRPORT);
                                     Node SvrACK ;
                                     SvrACK =(Node) COMM_recvJSON(Thread.currentThread().getName(),Window);
+                                    SvrACK.setIPAddr(Thread.currentThread().getName());
                                     ActiveIPLIST.add(SvrACK);
                                 } catch (Exception e) {
                                 }
